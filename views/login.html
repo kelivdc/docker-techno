@@ -1,0 +1,12 @@
+<h1>Login</h1>
+<form hx-post="/login" hx-target="#alert" id="login-form">
+  <div id="alert" role="alert" class="text-red-600"></div>
+  <div class="form-control">
+    <label class="label">
+      <span class="label-text">Username</span>
+    </label>
+    <input type="text" placeholder="username" name="username" class="input input-bordered" />
+  </div>
+  <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+

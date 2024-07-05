@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  web:    
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app
+    ports:
+      - 3000:3000    
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: techno        
+      POSTGRES_DB: techno       
+      POSTGRES_PASSWORD: techno
+      TZ: 'Asia/Jakarta'
+      PGTZ: 'Asia/Jakarta'
+    volumes:      
+      - db-data-alpine:/var/lib/postgresql/data  
+    healthcheck: 
+      test: ["CMD-SHELL", "pg_isready -d techno -U techno"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - 6432:6432
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+
+volumes:
+  db-data-alpine:

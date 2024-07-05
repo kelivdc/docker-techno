@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html data-theme="cupcake" lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0" />
+    <link href="/css/styles.css" rel="stylesheet" media="all" onload="this.media='all'">
+    <script src="/js/htmx.min.js"></script>
+    <title>Welcome {{.Title}}</title>
+</head>
+<body>
+    <div class="flex justify-center items-center h-screen">
+        <div class="card w-[500px] border shadow-xl mx-auto my-auto">
+            <div class="card-body">
+                <h2 class="card-title">Login</h2>
+                <div id="result"></div>
+                <form hx-post="/admin/proses" hx-disabled-elt="find button, find input" hx-target="#result" hx-on:htmx:before-request="proses()">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Email</span>
+                        </label>
+                        <input type="email" name="email" class="input input-sm input-bordered"  required />
+                    </div>
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Password</span>
+                        </label>
+                        <input type="password" name="password" class="input input-sm input-bordered" required/>
+                    </div>
+                    <div class="form-control mt-6">
+                        <button type="submit" class="btn btn-primary"><span
+                                class="loading loading-spinner loading-xs htmx-indicator"></span> Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{if .Error}}
+
+    <script>
+        Swal.fire({
+            title: 'Error!',
+            text: 'Username or password not match',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+        })
+    </script>
+    {{end}}
+    <script>
+        function proses() {
+            document.getElementById('result').innerHTML = '';
+        }
+    </script>
+</body>
+
+</html>
